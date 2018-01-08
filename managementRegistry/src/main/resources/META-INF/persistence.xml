@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	version="1.0">
+
+	<persistence-unit name="sceRegistry" transaction-type="JTA">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		 <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=postgresds)</jta-data-source>
+		<class>de.unistuttgart.iaas.chor.integration.management.registry.domain.SCEInstance</class>
+		<class>de.unistuttgart.iaas.chor.integration.management.registry.domain.ServiceEndpointData</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.archive.autodetection" value="false" />
+			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
+			<!-- <property name="hibernate.show_sql" value="true" /> -->
+		</properties>
+	</persistence-unit>
+
+</persistence>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http///www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<features>
+
+	<feature name="chor:middleware-dependencies" version="1.0">
+		 <feature version="4.3.6.Final">hibernate</feature>
+		 <feature version="3.2.11_RELEASE_1">spring</feature>
+		 <feature version="3.2.11_RELEASE_1">spring-jdbc</feature>
+		 <feature version="3.2.11_RELEASE_1">spring-orm</feature>
+		 <feature version="1.0.0">jndi</feature>
+		 <feature version="2.14.1">camel-jetty</feature>
+		 <feature version="2.14.1">camel-jaxb</feature>
+		<bundle>wrap:mvn:postgresql/postgresql/9.1-901.jdbc4</bundle>
+		<bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-dbcp/1.2.2_7</bundle>
+		<bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-io/1.3.2_5</bundle>
+		<bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-codec/1.3_5</bundle>
+	</feature>
+
+	<feature name="chor:middleware" version="1.0">
+		<feature version="1.0">chor:middleware-dependencies</feature>
+		<feature version="1.0">chor:emf</feature>
+		<bundle start-level="30">mvn:de.unistuttgart.iaas/messages/0.1-SNAPSHOT</bundle>
+		<bundle start-level="30">mvn:de.unistuttgart.iaas.chor.integration/commons/0.1-SNAPSHOT</bundle>
+		<bundle start-level="30">mvn:de.unistuttgart.iaas.chor.integration/chorDataModel/0.1-SNAPSHOT</bundle>
+		<bundle start-level="30">mvn:de.unistuttgart.iaas.chor.integration/postgresql-fragment/0.1-SNAPSHOT</bundle>
+		<bundle start-level="30">mvn:de.unistuttgart.iaas.chor.integration/artifact-registry-ds-blueprint/0.1-SNAPSHOT</bundle>
+		<bundle start-level="60">mvn:de.unistuttgart.iaas.chor.integration/artifactRegistry/0.1-SNAPSHOT</bundle>
+		<bundle start-level="30">mvn:de.unistuttgart.iaas.chor.integration/event-registry-ds-blueprint/0.1-SNAPSHOT</bundle>
+		<bundle start-level="60">mvn:de.unistuttgart.iaas.chor.integration/eventRegistry/0.1-SNAPSHOT</bundle>
+		<bundle start-level="30">mvn:de.unistuttgart.iaas.chor.integration/management-registry-ds-blueprint/0.1-SNAPSHOT</bundle>
+		<bundle start-level="60">mvn:de.unistuttgart.iaas.chor.integration/managementRegistry/0.1-SNAPSHOT</bundle>
+		<bundle start-level="30">mvn:de.unistuttgart.iaas.chor.integration/service-registry-ds-blueprint/0.1-SNAPSHOT</bundle>
+		<bundle start-level="60">mvn:de.unistuttgart.iaas.chor.integration/serviceRegistry/0.1-SNAPSHOT</bundle>
+		<bundle start-level="90">mvn:de.iaas.unistuttgart.chor/deployment/0.1-SNAPSHOT</bundle>
+		<bundle start-level="90">mvn:de.iaas.unistuttgart.chor.instance.repetition/repetitionManagement/0.1-SNAPSHOT</bundle>
+		<bundle start-level="90">mvn:de.iaas.unistuttgart.chor/eventManagement/0.1-SNAPSHOT</bundle>
+		<bundle start-level="90">mvn:de.iaas.unistuttgart.chor/instanceManagement/0.1-SNAPSHOT</bundle>
+		<bundle start-level="90">mvn:de.iaas.unistuttgart.chor/sceManagement/0.1-SNAPSHOT</bundle>
+		<bundle start-level="80">mvn:de.iaas.unistuttgart.chor/integration/0.1-SNAPSHOT</bundle>
+		
+	</feature>
+
+
+	<feature name="chor:emf" version="1.0">
+		<bundle>mvn:de.unistuttgart.iaas/org.eclipse.emf.common/2.11.0-v20150123-0347</bundle>
+		<bundle>mvn:de.unistuttgart.iaas/org.eclipse.emf.ecore.xmi/2.11.0-v20150123-0347</bundle>
+		<bundle>mvn:de.unistuttgart.iaas/org.eclipse.emf.ecore/2.11.0-v20150123-0347</bundle>
+		<bundle>mvn:de.unistuttgart.iaas/org.eclipse.wst.wsdl/1.2.350.v201309242123</bundle>
+		<bundle>mvn:de.unistuttgart.iaas/org.eclipse.wst/1.0.2-v200706120315</bundle>
+		<bundle>mvn:de.unistuttgart.iaas/org.eclipse.xsd/2.10.0-v20150123-0452</bundle>
+	</feature>
+
+</features>

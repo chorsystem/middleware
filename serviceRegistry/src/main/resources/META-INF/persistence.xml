@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	version="1.0">
+
+	<persistence-unit name="serviceRegistry" transaction-type="JTA">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		 <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=serviceRegistryDS)</jta-data-source>
+		<class>de.unistuttgart.iaas.chor.integration.service.registry.domain.Service</class>
+		<class>de.unistuttgart.iaas.chor.integration.service.registry.domain.ServicePK</class>
+		<class>de.unistuttgart.iaas.chor.integration.service.registry.domain.Port</class>
+		<class>de.unistuttgart.iaas.chor.integration.service.registry.domain.PortPK</class>
+		<class>de.unistuttgart.iaas.chor.integration.service.registry.domain.PortType</class>
+		<class>de.unistuttgart.iaas.chor.integration.service.registry.domain.PortTypePK</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.archive.autodetection" value="false" />
+			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
+			<property name="hibernate.show_sql" value="false" />
+		</properties>
+	</persistence-unit>
+
+</persistence>
+

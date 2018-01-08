@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/process_model_states"
+	xmlns:tns="http://www.example.org/process_model_states"
+	elementFormDefault="qualified">
+
+    <simpleType name="ProcessModelStatesType">
+    	<restriction base="string">
+    		<enumeration value="Process_Active"></enumeration>
+    		<enumeration value="Process_Deployed"></enumeration>
+    		<enumeration value="Process_Disabled"></enumeration>
+    		<enumeration value="Process_Retired"></enumeration>
+    		<enumeration value="Process_Undeployed"></enumeration>
+    	</restriction>
+    </simpleType>
+</schema>

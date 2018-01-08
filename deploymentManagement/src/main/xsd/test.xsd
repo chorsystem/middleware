@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://de.unistuttgart.iaas.chor.integration"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:tns="http://de.unistuttgart.iaas.chor.integration"
+	elementFormDefault="qualified" jxb:version="1.0">
+
+	<element name="routing">
+		<complexType>
+			<sequence>
+				<element name="test" type="string">
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

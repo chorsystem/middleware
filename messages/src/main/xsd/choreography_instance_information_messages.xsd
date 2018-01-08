@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/choreography_instance_information_message"
+	xmlns:tns="http://www.example.org/choreography_instance_information_message"
+	elementFormDefault="qualified" xmlns:pref="http://www.example.org/choreography_instance_states">
+
+
+
+	<import schemaLocation="choreography_instance_states.xsd" namespace="http://www.example.org/choreography_instance_states"></import>
+	<element name="GetChorInstancesMessage">
+		<complexType>
+			<sequence>
+				<element name="method" type="string"></element>
+				<element name="choreographyModelID" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="GetProcessInstancesMessage">
+		<complexType>
+			<sequence>
+				<element name="method" type="string"></element>
+				<element name="processModelID" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	
+	<element name="GetChorInstanceHistoryMessage">
+		<complexType>
+			<sequence>
+				<element name="method" type="string"></element>
+				<element name="choreographyInstanceID" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="GetChorInstanceHistoryReturnMessage">
+		<complexType>
+			<sequence>
+				<element name="chorInstanceID" type="string"></element>
+				<element name="processInstance" type="tns:processInstanceHistoryOfChorInstance" maxOccurs="unbounded"
+					minOccurs="0">
+				</element>
+				<element name="messageLinkInstance" type="tns:messageLinkInstanceInformation" maxOccurs="unbounded"
+					minOccurs="0">
+				</element>
+				
+				
+			</sequence>
+		</complexType>
+	</element>
+	
+	
+	<element name="GetProcessInstanceHistoryMessage">
+		<complexType>
+			<sequence>
+				<element name="method" type="string"></element>
+				<element name="processInstanceID" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="GetChorInstancesReturnMessage">
+		<complexType>
+			<sequence>
+				<element name="choreographyModelID" type="string"></element>
+				<element name="chorInstances"
+					type="tns:ChorInstanceInformation" maxOccurs="unbounded"
+					minOccurs="0">
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="GetProcessInstancesReturnMessage">
+		<complexType>
+			<sequence>
+				<element name="processModelID" type="string"></element>
+				<element name="processInstances"
+					type="tns:ProcessInstanceInformation" maxOccurs="unbounded"
+					minOccurs="0">
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="GetProcessInstanceHistoryReturnMessage">
+		<complexType>
+			<sequence>
+				<element name="processInstanceID" type="string"></element>
+				<element name="processName" type="QName"></element>
+				<element name="currentStates" type="tns:currentStateType" maxOccurs="unbounded"
+					minOccurs="0"></element>
+				<element name="events" type="tns:eventType" maxOccurs="unbounded"
+					minOccurs="0">
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	
+	<complexType name="processInstanceHistoryOfChorInstance">
+		<sequence>
+			<element name="processInstanceID" type="string"></element>
+			<element name="processName" type="QName"></element>
+			<element name="events" type="tns:eventType" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="messageLinkInstanceInformation">
+		<sequence>
+			<element name="choreographyInstanceID" type="string"></element>
+			<element name="messageLinkInstanceID" type="string"></element>
+			<element name="events" type="tns:messageLinkInstanceEventType" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="currentStateType">
+		<sequence>
+			<element name="instanceID" type="string"></element>
+			<element name="state" type="string"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="eventType">
+		<sequence>
+			<element name="eventID" type="long"></element>
+			<element name="eventType" type="string"></element>
+			<element name="source" type="string"></element>
+			<element name="timestamp" type="long"></element>
+			<element name="eventMessage" type="base64Binary"></element>
+			<element name="state" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="messageLinkInstanceEventType">
+		<sequence>
+			<element name="eventID" type="long"></element>
+			<element name="timestamp" type="long"></element>
+			<element name="state" type="string"></element>
+			<element name="elementModelID" type="string"></element>
+			<element name="messageID" type="string"></element>
+		</sequence>
+	</complexType>
+	
+
+	<complexType name="ChorInstanceInformation">
+		<sequence>
+			<element name="choreographyInstanceID" type="string"></element>
+				<element name="choreographyModelID" type="string"></element>
+			<element name="choreographyModelName" type="QName"></element>
+			<element name="state" type="pref:ChoreographyInstanceStates"></element>
+			<element name="version" type="string"></element>
+			<element name="timestamp" type="string"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="ProcessInstanceInformation">
+		<sequence>
+			<element name="processInstanceID" type="string"></element>
+			<element name="processModelID" type="string"></element>
+			<element name="processName" type="QName"></element>
+			<element name="packageName" type="string"></element>
+			<element name="odeProcessInstanceID" type="long"></element>
+			<element name="choreographyInstanceID" type="string"></element>
+			<element name="choreographyModelID" type="string"></element>
+			<element name="choreographyModelName" type="QName"></element>
+			<element name="state" type="string"></element>
+			<element name="version" type="long"></element>
+			<element name="timestamp" type="long"></element>
+		</sequence>
+	</complexType>
+	
+		<element name="GetSnapshotsMessage">
+		<complexType>
+			<sequence>
+				<element name="method" type="string"></element>
+				<element name="processInstanceID" type="string"></element>
+				<element name="elementModelID" type="string"></element>
+				<element name="activityXPath" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	
+		<element name="GetSnapshotVariablesMessage">
+		<complexType>
+			<sequence>
+				<element name="method" type="string"></element>
+				<element name="processInstanceID" type="string"></element>
+				<element name="snapshotID" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	
+</schema>

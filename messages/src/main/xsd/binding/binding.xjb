@@ -1,0 +1,29 @@
+<jxb:bindings version="1.0"
+               xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+                
+ 	 <jxb:globalBindings generateElementProperty="false"/> 
+ 	 
+ 	 <!--jxb:bindings schemaLocation="../headers.xsd" >
+        <jxb:bindings node="xs:element">
+            <jxb:property>
+                <jxb:baseType>
+                    <jxb:javaType name="javax.xml.namespace.QName"
+                       	parseMethod="de.unistuttgart.iaas.chor.parser.QNameParser.parseQName"
+					    printMethod="de.unistuttgart.iaas.chor.parser.QNameParser.printQName" />
+                </jxb:baseType>
+            </jxb:property>
+        </jxb:bindings>
+    </jxb:bindings-->
+    
+   
+ 	
+  <jxb:bindings schemaLocation="../choreography_instance_repetition_messages.xsd" >
+       <jxb:bindings node="//xs:element[@name='variables']">
+            <jxb:class ref="org.apache.ode.pmapi.types._2006._08._02.TVariableRefList"/>
+        </jxb:bindings>     
+    </jxb:bindings>	
+       
+</jxb:bindings>

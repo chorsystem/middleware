@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/choreography_deployment_message"
+	xmlns:tns="http://www.example.org/choreography_deployment_message"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb" elementFormDefault="qualified"
+	jxb:version="1.0">
+
+
+	<complexType name="choreographyBundleType">
+		<sequence>
+			<element name="choreographyModelID" type="string"></element>
+			<element name="name" type="QName"></element>
+			<element name="choreographyFolderZip" type="base64Binary"></element>
+			<element name="processBundles" type="tns:processBundleType"
+				maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="services" type="tns:serviceType" maxOccurs="unbounded"
+				minOccurs="0">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="processBundleType">
+		<sequence>
+			<element name="processModelID" type="string"></element>
+			<element name="name" type="QName"></element>
+			<element name="processFileName" type="string"></element>
+			<element name="processArtifactWSDL" type="string"></element>
+			<element name="processFolderZip" type="base64Binary"></element>
+			<element name="deployed" type="boolean" maxOccurs="1"
+				minOccurs="0">
+			</element>
+			<element name="correlationInformation" type="tns:correlationSetType"
+				maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="endpoint" type="string" maxOccurs="unbounded"
+				minOccurs="0">
+			</element>
+			<element name="inboundServices" type="tns:serviceType"
+				maxOccurs="unbounded" minOccurs="0">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="correlationSetType">
+		<sequence>
+			<element name="name" type="string"></element>
+			<element name="properties" type="string" maxOccurs="unbounded"
+				minOccurs="1"></element>
+			<element name="correlations" type="tns:correlationType"
+				maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="correlationType">
+		<sequence>
+			<element name="activityModelID" type="string"></element>
+			<element name="pattern" type="string"></element>
+			<element name="initiate" type="string"></element>
+			<element name="messageType" type="QName"></element>
+			<element name="part" type="string"></element>
+			<element name="query" type="string"></element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="serviceType">
+		<sequence>
+			<element name="service" type="QName">
+				<annotation>
+					<appinfo>
+						<jxb:javaType name="javax.xml.namespace.QName"
+							parseMethod="de.unistuttgart.iaas.chor.parser.QNameParser.parseQName"
+							printMethod="de.unistuttgart.iaas.chor.parser.QNameParser.printQName" />
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="portType" type="QName">
+				<annotation>
+					<appinfo>
+						<jxb:javaType name="javax.xml.namespace.QName"
+							parseMethod="de.unistuttgart.iaas.chor.parser.QNameParser.parseQName"
+							printMethod="de.unistuttgart.iaas.chor.parser.QNameParser.printQName" />
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="port" type="QName">
+				<annotation>
+					<appinfo>
+						<jxb:javaType name="javax.xml.namespace.QName"
+							parseMethod="de.unistuttgart.iaas.chor.parser.QNameParser.parseQName"
+							printMethod="de.unistuttgart.iaas.chor.parser.QNameParser.printQName" />
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="endpoint" type="string" maxOccurs="unbounded"
+				minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+
+	<element name="ChorDeploymentMessage">
+		<complexType>
+			<sequence>
+				<element name="choreographyBundle" type="tns:choreographyBundleType"></element>
+
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="ChorDeploymentResultMessage">
+		<complexType>
+			<sequence>
+				<element name="choreographyBundle" type="tns:choreographyBundleResultType"></element>
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="choreographyBundleResultType">
+		<sequence>
+			<element name="choreographyModelID" type="string"></element>
+			<element name="name" type="QName"></element>
+			<element name="ProcessBundleResult" type="tns:processBundleResultType"
+				maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="processBundleResultType">
+		<sequence>
+			<element name="processModelID" type="string"></element>
+			<element name="name" type="QName"></element>
+			<element name="packageName" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<element name="ChorDeploymentEventMessage">
+		<complexType>
+			<sequence>
+				<element name="choreographyModelID" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="ChorUndeploymentMessage">
+		<complexType>
+			<sequence>
+				<element name="choreographyModelID" type="string"></element>
+				<element name="processModels" type="tns:processBundleResultType"
+					minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="ChorUndeploymentEventMessage">
+		<complexType>
+			<sequence>
+				<element name="choreographyModelID" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/choreography_instance_information_message"
+	xmlns:tns="http://www.example.org/choreography_instance_repetition_message"
+	elementFormDefault="qualified" xmlns:pmapi="http://www.apache.org/ode/pmapi/types/2006/08/02/">
+
+
+	<!-- import schemaLocation="../resources/wsdl/pmapi.xsd" namespace="http://www.apache.org/ode/pmapi/types/2006/08/02/"></import-->
+	<element name="IterateChorInstanceMessage">
+		<complexType>
+			<sequence>
+				<element name="method" type="string"></element>
+				<element name="choreographyModelID" type="string"></element>
+				<element name="choreographyInstanceID" type="string"></element>
+
+				<element name="initialStartParticipant" type="string"></element>
+				<element name="initialRewindingPoint" type="string"></element>
+				<element name="view" type="string"></element>
+				<element name="xpath" type="string"/>
+				<element name="snapshotXPath" type="string"/>
+				<element name="snapshotVersion" type="string"/>
+				<element name="variables" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+
+
+
+
+</schema>

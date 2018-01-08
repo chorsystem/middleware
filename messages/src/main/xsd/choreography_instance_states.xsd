@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/choreography_instance_states"
+	xmlns:tns="http://www.example.org/choreography_instance_states"
+	elementFormDefault="qualified">
+
+	
+
+
+    <simpleType name="ChoreographyInstanceStates">
+    	<restriction base="string">
+    		<enumeration value="ChoreographyInstance_Initializing"></enumeration>
+    		<enumeration value="ChoreographyInstance_Running"></enumeration>
+    		<enumeration value="ChoreographyInstance_Running_with_Completed"></enumeration>
+    		<enumeration value="ChoreographyInstance_Running_with_Faulted"></enumeration>
+    		<enumeration value="ChoreographyInstance_Running_with_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Running_with_Completed_and_Faulted"></enumeration>
+    		<enumeration value="ChoreographyInstance_Running_with_Completed_and_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Running_with_Faulted_and_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Running_with_Completed_and_Faulted_and_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Suspended"></enumeration>
+    		<enumeration value="ChoreographyInstance_Suspended_with_Completed"></enumeration>
+    		<enumeration value="ChoreographyInstance_Suspended_with_Faulted"></enumeration>
+    		<enumeration value="ChoreographyInstance_Suspended_with_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Suspended_with_Completed_and_Faulted"></enumeration>
+    		<enumeration value="ChoreographyInstance_Suspended_with_Completed_and_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Suspended_with_Faulted_and_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Suspended_with_Completed_and_Faulted_and_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Completed"></enumeration>
+    		<enumeration value="ChoreographyInstance_Completed_with_Faulted"></enumeration>
+    		<enumeration value="ChoreographyInstance_Completed_with_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Faulted_with_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Completed_with_Faulted_and_Terminated"></enumeration>
+    		<enumeration value="ChoreographyInstance_Faulted"></enumeration>
+    		<enumeration value="ChoreographyInstance_Terminated"></enumeration>
+    	</restriction>
+    </simpleType>
+</schema>

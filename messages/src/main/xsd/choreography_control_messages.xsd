@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/choreography_control_message"
+	xmlns:tns="http://www.example.org/choreography_control_message"
+	elementFormDefault="qualified" xmlns:pref="http://www.example.org/choreography_instance_information_message">
+
+	<import schemaLocation="choreography_instance_information_messages.xsd" namespace="http://www.example.org/choreography_instance_information_message"></import>
+	<element name="ChorStartMessage">
+		<complexType>
+			<sequence>
+				<element name="choreographyModelId" type="string"
+					maxOccurs="1" minOccurs="1">
+				</element>
+				<element name="instanceWaitingTime" type="long" maxOccurs="1" minOccurs="0"></element>
+				<element name="startParticipants"
+					type="tns:StartParticipantType" maxOccurs="unbounded"
+					minOccurs="1">
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+
+
+	<complexType name="StartParticipantType">
+		<sequence>
+			<element name="processModelId" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="name" type="QName"></element>
+			<element name="headerMetaData" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="payload" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="endpoint" type="tns:EndpointDataType"
+				maxOccurs="1" minOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="EndpointDataType">
+		<sequence>
+			<element name="method" type="string"></element>
+			<element name="portType" type="QName"></element>
+			<element name="port" type="QName"></element>
+			<element name="service" type="QName"></element>
+		</sequence>
+	</complexType>
+
+	<element name="ChorStartReturnMessage">
+		<complexType>
+			<sequence>
+				<element name="choreographyModelID" type="string"></element>
+				<element name="chorInstance" type="pref:ChorInstanceInformation"></element>
+			</sequence>
+		</complexType>
+
+	</element>
+
+	<element name="ChorControlMessage">
+		<complexType>
+			<sequence>
+				<element name="method" type="string"></element>
+				<element name="choreographyModelID" type="string"></element>
+				<element name="choreographyInstanceID" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="ChorIterationControlMessage">
+		<complexType>
+			<sequence>
+				<element name="method" type="string"></element>
+				<element name="choreographyModelID" type="string"></element>
+				<element name="choreographyInstanceID" type="string"></element>
+				<element name="iterationID" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

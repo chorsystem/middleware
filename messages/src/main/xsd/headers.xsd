@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://de.unistuttgart.iaas.chor.integration"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:tns="http://de.unistuttgart.iaas.chor.integration"
+	elementFormDefault="qualified" jxb:version="1.0">
+
+
+
+
+	<element name="routing">
+		<complexType>
+			<sequence>
+				<element name="service" type="QName">
+					<annotation>
+						<appinfo>
+							<jxb:javaType name="javax.xml.namespace.QName"
+								parseMethod="de.unistuttgart.iaas.chor.parser.QNameParser.parseQName"
+								printMethod="de.unistuttgart.iaas.chor.parser.QNameParser.printQName" />
+						</appinfo>
+					</annotation>
+				</element>
+				<element name="port" type="QName">
+					<annotation>
+						<appinfo>
+							<jxb:javaType name="javax.xml.namespace.QName"
+								parseMethod="de.unistuttgart.iaas.chor.parser.QNameParser.parseQName"
+								printMethod="de.unistuttgart.iaas.chor.parser.QNameParser.printQName" />
+						</appinfo>
+					</annotation>
+				</element>
+				<element name="portType" type="QName">
+					<annotation>
+						<appinfo>
+							<jxb:javaType name="javax.xml.namespace.QName"
+								parseMethod="de.unistuttgart.iaas.chor.parser.QNameParser.parseQName"
+								printMethod="de.unistuttgart.iaas.chor.parser.QNameParser.printQName" />
+						</appinfo>
+					</annotation>
+				</element>
+				<element name="modelId" type="string">
+				</element>
+				<element name="from" type="string" maxOccurs="1" minOccurs="0">
+				</element>
+				<element name="to" type="string" maxOccurs="1" minOccurs="0">
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+
+
+</schema>

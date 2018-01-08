@@ -1,0 +1,890 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:pmapi="http://www.apache.org/ode/pmapi/types/2006/08/02/"
+        attributeFormDefault="unqualified"
+        elementFormDefault="qualified"
+        targetNamespace="http://www.apache.org/ode/pmapi/types/2006/08/02/">
+   <element id="process-info" name="process-info" type="pmapi:tProcessInfo"/>
+   <element id="activity-info" name="activity-info" type="pmapi:tActivityInfo"/>
+   <element name="process-info-list" type="pmapi:tProcessInfoList"/>
+   <element id="instance-info" name="instance-info" type="pmapi:tInstanceInfo"/>
+   <element name="instance-info-list" type="pmapi:tInstanceInfoList"/>
+   <element name="scope-info" type="pmapi:tScopeInfo"/>
+   <element name="variable-info" type="pmapi:tVariableInfo"/>
+   <element name="activity-ext-info-list" type="pmapi:tActivitytExtInfoList"/>
+   <element name="activity-ext-info" type="pmapi:tActivityExtInfo"/>
+   <element name="event-info" type="pmapi:tEventInfo"/>
+   <element name="event-info-list" type="pmapi:tEventInfoList"/>
+   <simpleType name="ExchangeType">
+      <restriction base="xs:string">
+         <enumeration value="M"/>
+         <enumeration value="P"/>
+      </restriction>
+   </simpleType>
+   <complexType name="ReplayType">
+      <choice>
+         <element name="mock" type="xs:anySimpleType"/>
+         <element name="mockQuery" type="xs:string"/>
+         <element name="live" type="xs:anySimpleType"/>
+      </choice>
+   </complexType>
+   <element name="mockQueryRequest">
+      <complexType>
+         <sequence>
+            <element name="createTime" type="xs:dateTime"/>
+            <element name="service" type="xs:QName"/>
+            <element name="operation" type="xs:string"/>
+            <element name="in" type="xs:anyType"/>
+            <element name="pattern">
+               <simpleType>
+                  <restriction base="xs:string">
+                     <enumeration value="IN_ONLY"/>
+                     <enumeration value="IN_OUT"/>
+                  </restriction>
+               </simpleType>
+            </element>
+         </sequence>
+      </complexType>
+   </element>
+   <element name="mockQueryResponse" type="pmapi:ResponseType"/>
+   <complexType name="ResponseType">
+      <choice>
+         <element name="out" type="xs:anyType"/>
+         <element name="fault" type="pmapi:FaultType"/>
+         <element name="failure" type="pmapi:FailureType"/>
+      </choice>
+   </complexType>
+   <complexType name="GetCommunication">
+      <sequence>
+         <element maxOccurs="unbounded" name="iid" type="xs:long"/>
+      </sequence>
+   </complexType>
+   <complexType name="GetCommunicationResponse">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" name="restoreInstance"
+                  type="pmapi:CommunicationType"/>
+      </sequence>
+   </complexType>
+   <element name="getCommunicationResponse" type="pmapi:GetCommunicationResponse"/>
+   <complexType name="FaultType">
+      <sequence>
+         <element name="type" type="xs:QName"/>
+         <element name="explanation" type="xs:string"/>
+         <element name="message" type="xs:anyType"/>
+      </sequence>
+   </complexType>
+   <complexType name="FailureType">
+      <sequence>
+         <element name="explanation" type="xs:string"/>
+      </sequence>
+   </complexType>
+   <complexType name="CommunicationType">
+      <sequence>
+         <element name="processType" type="xs:QName"/>
+         <element default="true" minOccurs="0" name="rollbackOnFault" type="xs:boolean"/>
+         <element maxOccurs="unbounded" name="serviceConfig">
+            <complexType>
+               <sequence>
+                  <element name="service" type="xs:QName"/>
+                  <element name="replayType" type="pmapi:ReplayType"/>
+               </sequence>
+            </complexType>
+         </element>
+         <element maxOccurs="unbounded" name="exchange">
+            <complexType>
+               <sequence>
+                  <element name="type" type="pmapi:ExchangeType"/>
+                  <element name="createTime" type="xs:dateTime"/>
+                  <element name="service" type="xs:QName"/>
+                  <element name="operation" type="xs:string"/>
+                  <element name="in" type="xs:anyType"/>
+                  <choice>
+                     <element name="out" type="xs:anyType"/>
+                     <element name="fault" type="pmapi:FaultType"/>
+                     <element name="failure" type="pmapi:FailureType"/>
+                  </choice>
+               </sequence>
+            </complexType>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="Replay">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" name="upgradeInstance" type="xs:long"/>
+         <element maxOccurs="unbounded" minOccurs="0" name="replaceInstance" type="xs:long"/>
+         <element maxOccurs="unbounded" minOccurs="0" name="restoreInstance"
+                  type="pmapi:CommunicationType"/>
+      </sequence>
+   </complexType>
+   <complexType name="ReplayResponse">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" name="restoredIID" type="xs:long"/>
+      </sequence>
+   </complexType>
+   <element name="replayResponse" type="pmapi:ReplayResponse"/>
+   <complexType name="tProcessInfo">
+      <annotation>
+         <documentation>Information about a BPEL process.</documentation>
+      </annotation>
+      <sequence>
+         <element name="pid" type="xs:string">
+            <annotation>
+               <documentation>The unique name/id of the process.</documentation>
+            </annotation>
+         </element>
+         <element name="status" type="pmapi:tProcessStatus">
+            <annotation>
+               <documentation>Process status.</documentation>
+            </annotation>
+         </element>
+         <element name="version" type="xs:long">
+            <annotation>
+               <documentation>Process version.</documentation>
+            </annotation>
+         </element>
+         <element name="definition-info" type="pmapi:tDefinitionInfo">
+            <annotation>
+               <documentation>Information about the process
+                        definition.</documentation>
+            </annotation>
+         </element>
+         <element name="deployment-info" type="pmapi:tDeploymentInfo">
+            <annotation>
+               <documentation>Information about the process
+                        deployment.</documentation>
+            </annotation>
+         </element>
+         <element minOccurs="0" name="instance-summary" type="pmapi:tInstanceSummary">
+            <annotation>
+               <documentation>Summary of the instances belonging to this
+                        process.</documentation>
+            </annotation>
+         </element>
+         <element name="properties" type="pmapi:tProcessProperties">
+            <annotation>
+               <documentation>Process properties.</documentation>
+            </annotation>
+         </element>
+         <element name="endpoints" type="pmapi:tEndpointReferences">
+            <annotation>
+               <documentation>Endpoint references.</documentation>
+            </annotation>
+         </element>
+         <element name="documents">
+            <annotation>
+               <documentation>Process documents</documentation>
+            </annotation>
+            <complexType>
+               <sequence>
+                  <element maxOccurs="unbounded" minOccurs="0" name="document" type="pmapi:tDocumentInfo"/>
+               </sequence>
+            </complexType>
+         </element>
+         <any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+      </sequence>
+      <anyAttribute namespace="##other" processContents="lax"/>
+   </complexType>
+   <simpleType name="tProcessStatus">
+      <annotation>
+         <documentation>Enumeration of process status.</documentation>
+      </annotation>
+      <restriction base="xs:string">
+         <enumeration value="ACTIVE">
+            <annotation>
+               <documentation>Process is accepting new
+                        requests.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="RETIRED">
+            <annotation>
+               <documentation>Process is NOT accepting new
+                        requests.</documentation>
+            </annotation>
+         </enumeration>
+      </restriction>
+   </simpleType>
+   <simpleType name="tActivityStatus">
+      <annotation>
+         <documentation>Enumeration of scope status.</documentation>
+      </annotation>
+      <restriction base="xs:string">
+         <enumeration value="ENABLED">
+            <annotation>
+               <documentation>Activity is enabled, but not necessarily ready to execute.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="STARTED">
+            <annotation>
+               <documentation>Activity has started execution.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="COMPLETED">
+            <annotation>
+               <documentation>Activity has finished execution.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="FAILURE">
+            <annotation>
+               <documentation>Activity is in failure state, recovery required.</documentation>
+            </annotation>
+         </enumeration>
+      </restriction>
+   </simpleType>
+   <simpleType name="tScopeStatus">
+      <annotation>
+         <documentation>Enumeration of scope status.</documentation>
+      </annotation>
+      <restriction base="xs:string">
+         <enumeration value="ACTIVE">
+            <annotation>
+               <documentation>Scope is active.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="COMPLETED">
+            <annotation>
+               <documentation>Scope has completed.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="FAULTED">
+            <annotation>
+               <documentation>Scope has faulted.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="FAULTHANDLING">
+            <annotation>
+               <documentation>Scope is executing its fault
+                        handler.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="COMPENSATING">
+            <annotation>
+               <documentation>Scope is executing its compensation
+                        handler.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="COMPENSATED">
+            <annotation>
+               <documentation>Scope has been compensated.</documentation>
+            </annotation>
+         </enumeration>
+      </restriction>
+   </simpleType>
+   <complexType name="tDefinitionInfo">
+      <annotation>
+         <documentation>Information about the process definition.</documentation>
+      </annotation>
+      <sequence>
+         <element name="process-name" type="xs:QName">
+            <annotation>
+               <documentation>The qualified name of the BPEL
+                        process.</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="tDocumentInfo">
+      <annotation>
+         <documentation>Information about a document.</documentation>
+      </annotation>
+      <sequence>
+         <element name="name" type="xs:string">
+            <annotation>
+               <documentation>Name of the document.</documentation>
+            </annotation>
+         </element>
+         <element name="type" type="xs:anyURI">
+            <annotation>
+               <documentation>Type of document (e.g.
+                        WSDL/BPEL/etc...).</documentation>
+            </annotation>
+         </element>
+         <element name="source" type="xs:anyURI">
+            <annotation>
+               <documentation>URL where the document can be
+                        retrieved.</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="tDeploymentInfo">
+      <annotation>
+         <documentation>Information about a BPEL process
+                deployment.</documentation>
+      </annotation>
+      <sequence>
+         <element name="package" type="xs:string">
+            <annotation>
+               <documentation>Deployment package the process was deployed into.</documentation>
+            </annotation>
+         </element>
+         <element name="document" type="xs:string">
+            <annotation>
+               <documentation>File name of BPEL document.</documentation>
+            </annotation>
+         </element>
+         <element name="deploy-date" type="xs:dateTime">
+            <annotation>
+               <documentation>Date the process was deployed.</documentation>
+            </annotation>
+         </element>
+         <element name="deployer" type="xs:string">
+            <annotation>
+               <documentation>The user that deployed this
+                        process.</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="tProcessProperties">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" name="property">
+            <annotation>
+               <documentation>Process property (name-value pair).</documentation>
+            </annotation>
+            <complexType>
+               <sequence>
+                  <any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+               </sequence>
+               <attribute name="name" type="xs:QName">
+                  <annotation>
+                     <documentation>Name of the property.</documentation>
+                  </annotation>
+               </attribute>
+            </complexType>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="tEndpointReferences">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" name="endpoint-ref">
+            <annotation>
+               <documentation>Endpoint references associated with the process partner links roles.</documentation>
+            </annotation>
+            <complexType>
+               <sequence>
+                  <any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+               </sequence>
+               <attribute name="partner-link" type="xs:string">
+                  <annotation>
+                     <documentation>Name of the partner link this endpoint reference is associated with.</documentation>
+                  </annotation>
+               </attribute>
+               <attribute name="partner-role" type="xs:string">
+                  <annotation>
+                     <documentation>Name of the partner role this endpoint reference is associated with.</documentation>
+                  </annotation>
+               </attribute>
+            </complexType>
+         </element>
+      </sequence>
+   </complexType>
+   <simpleType name="tInstanceStatus">
+      <annotation>
+         <documentation>Enumeration of instant status.</documentation>
+      </annotation>
+      <restriction base="xs:string">
+         <enumeration value="ACTIVE">
+            <annotation>
+               <documentation>Instance is active.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="COMPLETED">
+            <annotation>
+               <documentation>Instance has completed.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="TERMINATED">
+            <annotation>
+               <documentation>Instance was terminated.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="FAILED">
+            <annotation>
+               <documentation>Instance failed (with a fault).</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="SUSPENDED">
+            <annotation>
+               <documentation>Instance has been suspended.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="ERROR">
+            <annotation>
+               <documentation>Instance is.....</documentation>
+            </annotation>
+         </enumeration>
+      </restriction>
+   </simpleType>
+   <complexType name="tInstanceSummary">
+      <annotation>
+         <documentation>A summary of the number of instances in each state.
+            </documentation>
+      </annotation>
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" name="instances">
+            <complexType>
+               <attribute name="state" type="pmapi:tInstanceStatus" use="required"/>
+               <attribute name="count" type="xs:int" use="required"/>
+            </complexType>
+         </element>
+         <element minOccurs="0" name="failures" type="pmapi:tFailuresInfo"/>
+      </sequence>
+   </complexType>
+   <complexType name="tScopeInfo">
+      <sequence>
+         <element name="siid" type="xs:string">
+            <annotation>
+               <documentation>Scope instance identifier.</documentation>
+            </annotation>
+         </element>
+         <element name="name" type="xs:string">
+            <annotation>
+               <documentation>Scope name.</documentation>
+            </annotation>
+         </element>
+         <element name="status" type="pmapi:tScopeStatus">
+            <annotation>
+               <documentation>Scope instance identifier.</documentation>
+            </annotation>
+         </element>
+         <element minOccurs="0" name="parent-scope-ref" type="pmapi:tScopeRef">
+            <annotation>
+               <documentation>Parent scope reference.</documentation>
+            </annotation>
+         </element>
+         <element minOccurs="0" name="children">
+            <complexType>
+               <sequence>
+                  <element maxOccurs="unbounded" minOccurs="0" name="child-ref" type="pmapi:tScopeRef"/>
+               </sequence>
+            </complexType>
+         </element>
+         <element minOccurs="0" name="activities">
+            <complexType>
+               <sequence>
+                  <element maxOccurs="unbounded" minOccurs="0" ref="pmapi:activity-info"/>
+               </sequence>
+            </complexType>
+         </element>
+         <element minOccurs="0" name="variables">
+            <complexType>
+               <sequence>
+                  <element maxOccurs="unbounded" minOccurs="0" name="variable-ref"
+                           type="pmapi:tVariableRef"/>
+               </sequence>
+            </complexType>
+         </element>
+         <element minOccurs="0" name="correlation-sets">
+            <annotation>
+               <documentation>Lists all correlation correlation sets associated with
+                        this scope with their valued correlation properties.</documentation>
+            </annotation>
+            <complexType>
+               <sequence>
+                  <element maxOccurs="unbounded" name="correlation-set">
+                     <complexType>
+                        <sequence>
+                           <element maxOccurs="unbounded" name="correlation-property"
+                                    type="pmapi:tCorrelationProperty"/>
+                        </sequence>
+                        <attribute name="name" type="xs:string" use="required"/>
+                        <attribute name="csetid" type="xs:string" use="required"/>
+                     </complexType>
+                  </element>
+               </sequence>
+            </complexType>
+         </element>
+         <element name="endpoints" type="pmapi:tEndpointReferences">
+            <annotation>
+               <documentation>Endpoint references.</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="tActivityInfo">
+      <annotation>
+         <documentation>Information about an activity.
+            </documentation>
+      </annotation>
+      <sequence>
+         <element minOccurs="0" name="name" type="xs:string"/>
+         <element name="type" type="xs:string"/>
+         <element name="aiid" type="xs:string"/>
+         <element name="status" type="pmapi:tActivityStatus"/>
+         <element minOccurs="0" name="scope" type="pmapi:tScopeRef">
+            <annotation>
+               <documentation>ID for scope in which this activity is executing.</documentation>
+            </annotation>
+         </element>
+         <element minOccurs="0" name="dt-enabled" type="xs:dateTime">
+            <annotation>
+               <documentation>The date/time when the activity was enabled.</documentation>
+            </annotation>
+         </element>
+         <element minOccurs="0" name="dt-started" type="xs:dateTime">
+            <annotation>
+               <documentation>The date/time when the activity was
+                        started.</documentation>
+            </annotation>
+         </element>
+         <element minOccurs="0" name="dt-completed" type="xs:dateTime">
+            <annotation>
+               <documentation>The date/time when the activity was
+                        completed.</documentation>
+            </annotation>
+         </element>
+         <element minOccurs="0" name="failure" type="pmapi:tFailureInfo">
+            <annotation>
+               <documentation>Indicates activity is in the failure state and requires recovery.</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="tFailureInfo">
+      <annotation>
+         <documentation>Indicates activity is in the failure state and requires recovery.</documentation>
+      </annotation>
+      <sequence>
+         <element name="dt-failure" type="xs:dateTime">
+            <annotation>
+               <documentation>The date/time when failure occurred.</documentation>
+            </annotation>
+         </element>
+         <element name="retries" type="xs:int">
+            <annotation>
+               <documentation>Number of retries.</documentation>
+            </annotation>
+         </element>
+         <element name="reason" type="xs:string">
+            <annotation>
+               <documentation>Reason for failure.</documentation>
+            </annotation>
+         </element>
+         <element name="actions" type="xs:string">
+            <annotation>
+               <documentation>Allowed recovery actions (space separated list of action names).</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="tVariableInfo">
+      <annotation>
+         <documentation>Information about a variable (basically the value)
+            </documentation>
+      </annotation>
+      <sequence>
+         <element name="self" type="pmapi:tVariableRef"/>
+         <element minOccurs="0" name="value">
+            <complexType>
+               <sequence>
+                  <any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+               </sequence>
+            </complexType>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="tInstanceInfo">
+      <sequence>
+         <element name="iid" type="xs:string">
+            <annotation>
+               <documentation>The unique instance identifier. </documentation>
+            </annotation>
+         </element>
+         <element name="pid" type="xs:string">
+            <annotation>
+               <documentation>Process id of the process to which this instance
+                        belongs.</documentation>
+            </annotation>
+         </element>
+         <element name="process-name" type="xs:QName"/>
+         <element minOccurs="0" name="root-scope" type="pmapi:tScopeRef">
+            <annotation>
+               <documentation>Root scope id (might not exist). </documentation>
+            </annotation>
+         </element>
+         <element name="status" type="pmapi:tInstanceStatus">
+            <annotation>
+               <documentation>Status of ths instance.</documentation>
+            </annotation>
+         </element>
+         <element name="dt-started" type="xs:dateTime">
+            <annotation>
+               <documentation>The date/time when the instance was
+                        started.</documentation>
+            </annotation>
+         </element>
+         <element name="dt-last-active" type="xs:dateTime">
+            <annotation>
+               <documentation>The date/time when the last activity
+                        occured.</documentation>
+            </annotation>
+         </element>
+         <element minOccurs="0" name="dt-error-since" type="xs:dateTime">
+            <annotation>
+               <documentation> If present, indicates the date/time since which the
+                        instance has been in an error state. </documentation>
+            </annotation>
+         </element>
+         <element minOccurs="0" name="correlation-properties">
+            <annotation>
+               <documentation>Lists all correlation properties with their values that
+                        are associated with this process instance.</documentation>
+            </annotation>
+            <complexType>
+               <sequence>
+                  <element maxOccurs="unbounded" name="correlation-property"
+                           type="pmapi:tCorrelationProperty">
+                     <annotation>
+                        <documentation>Instance correlation property.</documentation>
+                     </annotation>
+                  </element>
+               </sequence>
+            </complexType>
+         </element>
+         <element minOccurs="0" name="event-info">
+            <annotation>
+               <documentation> Information about the events for this instance. If
+                        absent, indicates events are not available. </documentation>
+            </annotation>
+            <complexType>
+               <sequence>
+                  <element name="count" type="xs:int">
+                     <annotation>
+                        <documentation> Indicates the datetime of the first event
+                                </documentation>
+                     </annotation>
+                  </element>
+                  <element name="first-dtime" type="xs:dateTime">
+                     <annotation>
+                        <documentation> Indicates the datetime of the first event
+                                </documentation>
+                     </annotation>
+                  </element>
+                  <element name="last-dtime" type="xs:dateTime">
+                     <annotation>
+                        <documentation> Indicates the datetime of the last event.
+                                </documentation>
+                     </annotation>
+                  </element>
+               </sequence>
+            </complexType>
+         </element>
+         <element minOccurs="0" name="fault-info" type="pmapi:tFaultInfo">
+            <annotation>
+               <documentation> If present, indicates the fault with which this
+                        instance failed. </documentation>
+            </annotation>
+         </element>
+         <element minOccurs="0" name="failures" type="pmapi:tFailuresInfo"/>
+      </sequence>
+   </complexType>
+   <complexType name="tScopeRef">
+      <annotation>
+         <documentation> Reference to a scope. </documentation>
+      </annotation>
+      <attribute name="siid" type="xs:string" use="required"/>
+      <attribute name="name" type="xs:string" use="optional"/>
+      <attribute name="modelId" type="xs:string" use="required"/>
+      <attribute name="status" type="pmapi:tScopeStatus" use="required"/>
+   </complexType>
+   <complexType name="tVariableRef">
+      <annotation>
+         <documentation>Reference to a variable.</documentation>
+      </annotation>
+      <attribute name="iid" type="xs:string" use="required"/>
+      <attribute name="siid" type="xs:string" use="required"/>
+      <attribute name="name" type="xs:string" use="required"/>
+   </complexType>
+   <complexType name="tFaultInfo">
+      <annotation>
+         <documentation> Type used for reporting faults. </documentation>
+      </annotation>
+      <sequence>
+         <element name="name" type="xs:QName"/>
+         <element name="explanation" type="xs:string"/>
+         <element name="line-number" type="xs:int"/>
+         <element name="aiid" type="xs:int"/>
+         <element minOccurs="0" name="data">
+            <complexType>
+               <sequence>
+                  <any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+               </sequence>
+            </complexType>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="tFailuresInfo">
+      <annotation>
+         <documentation>Indicates one or more activities are in the failure
+                state and require recovery.</documentation>
+      </annotation>
+      <sequence>
+         <element name="dt-failure" type="xs:dateTime">
+            <annotation>
+               <documentation>Date/time of last failure.</documentation>
+            </annotation>
+         </element>
+         <element name="count" type="xs:int">
+            <annotation>
+               <documentation>Number of activities in failure state.</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <complexType name="tEventInfo">
+      <sequence>
+         <element name="name" type="xs:string"/>
+         <element name="type" type="xs:string"/>
+         <element name="line-number" type="xs:int"/>
+         <element name="timestamp" type="xs:dateTime"/>
+         <element minOccurs="0" name="process-id" type="xs:QName"/>
+         <element minOccurs="0" name="process-type" type="xs:QName"/>
+         <element minOccurs="0" name="instance-id" type="xs:long"/>
+         <element minOccurs="0" name="scope-id" type="xs:long"/>
+         <element minOccurs="0" name="parent-scope-id" type="xs:long"/>
+         <element minOccurs="0" name="scope-name" type="xs:string"/>
+         <element minOccurs="0" name="scope-definition-id" type="xs:int"/>
+         <element minOccurs="0" name="activity-id" type="xs:long"/>
+         <element minOccurs="0" name="activity-name" type="xs:string"/>
+         <element minOccurs="0" name="activity-type" type="xs:string"/>
+         <element minOccurs="0" name="activity-definition-id" type="xs:int"/>
+         <element minOccurs="0" name="activity-failure-reason" type="xs:string"/>
+         <element minOccurs="0" name="activity-recovery-action" type="xs:string"/>
+         <element minOccurs="0" name="variable-name" type="xs:string"/>
+         <element minOccurs="0" name="new-value" type="xs:string"/>
+         <element minOccurs="0" name="port-type" type="xs:QName"/>
+         <element minOccurs="0" name="operation" type="xs:string"/>
+         <element minOccurs="0" name="correlation-set" type="xs:string"/>
+         <element minOccurs="0" name="mex-id" type="xs:string"/>
+         <element minOccurs="0" name="correlation-key" type="xs:string"/>
+         <element minOccurs="0" name="expression" type="xs:string"/>
+         <element minOccurs="0" name="fault" type="xs:QName"/>
+         <element minOccurs="0" name="fault-line-number" type="xs:int"/>
+         <element minOccurs="0" name="explanation" type="xs:string"/>
+         <element minOccurs="0" name="result" type="xs:string"/>
+         <element minOccurs="0" name="root-scope-id" type="xs:long"/>
+         <element minOccurs="0" name="root-scope-declaration-id" type="xs:int"/>
+         <element minOccurs="0" name="partner-link-name" type="xs:string"/>
+         <element minOccurs="0" name="old-state" type="xs:int"/>
+         <element minOccurs="0" name="new-state" type="xs:int"/>
+         <element minOccurs="0" name="success" type="xs:boolean"/>
+      </sequence>
+   </complexType>
+   <complexType name="tInstanceInfoList">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" ref="pmapi:instance-info"/>
+      </sequence>
+   </complexType>
+   <complexType name="tProcessInfoList">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" ref="pmapi:process-info"/>
+      </sequence>
+   </complexType>
+   <complexType name="tEventInfoList">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" ref="pmapi:event-info"/>
+      </sequence>
+   </complexType>
+   <complexType mixed="true" name="tCorrelationProperty">
+      <simpleContent>
+         <extension base="xs:string">
+            <attribute name="csetid" type="xs:string" use="required"/>
+            <attribute name="propertyName" type="xs:QName" use="required"/>
+         </extension>
+      </simpleContent>
+   </complexType>
+   <complexType name="tActivityExtInfo">
+      <annotation>
+         <documentation>Information about an activity.
+            </documentation>
+      </annotation>
+      <sequence>
+         <element name="aiid" type="xs:string"/>
+         <any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+      </sequence>
+   </complexType>
+   <complexType name="tActivitytExtInfoList">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" ref="pmapi:activity-ext-info"/>
+      </sequence>
+   </complexType>
+   <element name="snapshot-info" type="pmapi:tSnapshotInfo"/>
+   <complexType name="tSnapshotInfo">
+      <sequence>
+         <element name="iid" type="xs:string"/>
+         <element minOccurs="0" name="process-id" type="xs:QName"/>
+         <element name="activityXPath" type="xs:string"/>
+         <element maxOccurs="unbounded" ref="pmapi:snapshot-version"/>
+      </sequence>
+   </complexType>
+   <element name="snapshot-version" type="pmapi:tSnapshotVersion"/>
+   <complexType name="tSnapshotVersion">
+      <sequence>
+         <element name="snapshot-id" type="xs:string"/>
+         <element name="version" type="xs:string"/>
+         <element name="created" type="xs:dateTime"/>
+      </sequence>
+   </complexType>
+   <complexType name="tSnapshotVariables">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" ref="pmapi:variable-info"/>
+      </sequence>
+   </complexType>
+   <element name="snapshot-variables" type="pmapi:tSnapshotVariables"/>
+   <element name="variable-ref-list" type="pmapi:tVariableRefList"/>
+   <complexType name="tVariableRefList">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" name="variable" type="pmapi:tVariableRef"/>
+      </sequence>
+   </complexType>
+   <element name="snapshot-info-list" type="pmapi:tSnapshotInfoList"/>
+   <complexType name="tSnapshotInfoList">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" ref="pmapi:snapshot-info"/>
+      </sequence>
+   </complexType>
+   <complexType name="tPartnerLinkInfo">
+      <sequence>
+         <element name="self" type="pmapi:tPartnerLinkRef"/>
+         <element name="myRoleName" type="xs:string"/>
+         <element name="partnerRoleName" type="xs:string"/>
+         <element name="myRoleServiceName" type="xs:QName"/>
+         <element minOccurs="0" name="myEPR">
+            <complexType>
+               <sequence>
+                  <any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+               </sequence>
+            </complexType>
+         </element>
+         <element minOccurs="0" name="partnerEPR">
+            <complexType>
+               <sequence>
+                  <any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+               </sequence>
+            </complexType>
+         </element>
+         <element name="mySessionId" type="xs:string"/>
+         <element name="partnerSessionId" type="xs:string"/>
+      </sequence>
+   </complexType>
+   <complexType name="tPartnerLinkRef">
+      <attribute name="iid" type="xs:string"/>
+      <attribute name="siid" type="xs:string"/>
+      <attribute name="name" type="xs:string"/>
+      <attribute name="modelId" type="xs:string"/>
+   </complexType>
+   <complexType name="tPartnerLinkRefList">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" name="partnerLink"
+                  type="pmapi:tPartnerLinkRef"/>
+      </sequence>
+   </complexType>
+   <element name="partnerLink-ref-list" type="pmapi:tPartnerLinkRefList"/>
+   <element name="partnerLink-info" type="pmapi:tPartnerLinkInfo"/>
+   <element name="snapshot-partnerLinks" type="pmapi:tSnapshotPartnerLinks"/>
+   <complexType name="tSnapshotPartnerLinks">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="0" ref="pmapi:partnerLink-info"/>
+      </sequence>
+   </complexType>
+</schema>

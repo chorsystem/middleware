@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>de.unistuttgart.iaas.chor.integration</groupId>
+	<artifactId>artifact-registry-ds-blueprint</artifactId>
+	<packaging>bundle</packaging>
+	<version>0.1-SNAPSHOT</version>
+	<name>Artifact Registry DataSource Definition</name>
+
+	<parent>
+		<groupId>de.unistuttgart.iaas.chor</groupId>
+		<artifactId>middleware</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+	
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.6</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Export-Service>javax.sql.DataSource</Export-Service>
+						<Import-Package>
+							org.postgresql,
+							javax.sql,
+							javax.naming, 
+							*</Import-Package>
+						<Include-Resource>{maven-resources},{maven-dependencies}</Include-Resource>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>

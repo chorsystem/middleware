@@ -1,0 +1,181 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.iaas.unistuttgart.chor</groupId>
+	<artifactId>eventManagement</artifactId>
+	<packaging>bundle</packaging>
+	<version>0.1-SNAPSHOT</version>
+	<name>chor-events</name>
+
+	<parent>
+		<groupId>de.unistuttgart.iaas.chor</groupId>
+		<artifactId>middleware</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+			<version>2.14.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-camel</artifactId>
+			<version>5.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>de.unistuttgart.iaas</groupId>
+			<artifactId>messages</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.unistuttgart.iaas.chor.integration</groupId>
+			<artifactId>managementRegistry</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.unistuttgart.iaas.chor.integration</groupId>
+			<artifactId>eventRegistry</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.unistuttgart.iaas.chor.integration</groupId>
+			<artifactId>serviceRegistry</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.unistuttgart.iaas.chor.integration</groupId>
+			<artifactId>artifactRegistry</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.unistuttgart.iaas.chor.integration</groupId>
+			<artifactId>commons</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>de.unistuttgart.iaas.chor.integration</groupId>
+			<artifactId>chorDataModel</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>de.iaas.unistuttgart.chor.instance.repetition</groupId>
+	        <artifactId>repetitionManagement</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cxf</artifactId>
+			<version>2.14.1</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-core</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-core</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.unistuttgart.iaas</groupId>
+			<artifactId>org.eclipse.emf.ecore</artifactId>
+			<version>2.11.0-v20150123-0347</version>
+		</dependency>
+		<dependency>
+			<groupId>de.unistuttgart.iaas</groupId>
+			<artifactId>org.eclipse.emf.common</artifactId>
+			<version>2.11.0-v20150123-0347</version>
+		</dependency>
+		<dependency>
+			<groupId>de.unistuttgart.iaas</groupId>
+			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+			<version>2.11.0-v20150123-0347</version>
+		</dependency>
+		<dependency>
+			<groupId>de.unistuttgart.iaas</groupId>
+			<artifactId>org.eclipse.xsd</artifactId>
+			<version>2.10.0-v20150123-0452</version>
+		</dependency>
+		<dependency>
+			<groupId>de.unistuttgart.iaas</groupId>
+			<artifactId>org.eclipse.wst</artifactId>
+			<version>1.0.2-v200706120315</version>
+		</dependency>
+		<dependency>
+			<groupId>de.unistuttgart.iaas</groupId>
+			<artifactId>org.eclipse.wst.wsdl</artifactId>
+			<version>1.2.350.v201309242123</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+
+	</dependencies>
+
+
+	<build>
+		<finalName>chor-events-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.6</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Description>${project.description}</Bundle-Description>
+                        <Export-Package>!de.unistuttgart.iaas.chor.messages,!de.unistuttgart.iaas.chor.commons.util,de.unistuttgart.iaas.chor.integration.events;uses:="org.apache.ode.bpel.extensions.comm.messages.engineOut,de.unistuttgart.iaas.chor.integration.event.registry,de.unistuttgart.iaas.chor.integration.event.registry.domain,de.unistuttgart.iaas.chor.commons.messaging,de.unistuttgart.iaas.chor.integration.artifact.registry,de.unistuttgart.iaas.chor.integration.management.registry,de.unistuttgart.iaas.chor.integration.management.registry.domain,org.slf4j,javax.xml.namespace,de.unistuttgart.iaas.chor.integration.service.registry,org.apache.camel,org.apache.camel.builder,org.apache.camel.model,de.unistuttgart.iaas.chor.integration.event.registry.domain.iteration,org.eclipse.bpel4chor.model.chor,de.unistuttgart.iaas.chor.instance.repetition";version="0.1.0.SNAPSHOT"</Export-Package>
+						<Import-Package>
+							org.apache.cxf.service.*,
+							*</Import-Package>
+						<Private-Package>de.unistuttgart.iaas.chor.integration.camel</Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/choreography_model_information_message"
+	xmlns:tns="http://www.example.org/choreography_model_information_message"
+	elementFormDefault="qualified" 
+	xmlns:cmst="http://www.example.org/choreography_model_states"
+	xmlns:pmst="http://www.example.org/process_model_states">
+
+	<import schemaLocation="choreography_model_states.xsd" namespace="http://www.example.org/choreography_model_states"></import>
+	<import schemaLocation="process_model_states.xsd" namespace="http://www.example.org/process_model_states"></import>
+	
+	<element name="GetChorModelsMessage">
+		<complexType>
+			<sequence>
+				<element name="method" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="GetChorModelsReturnMessage">
+		<complexType>
+			<sequence>
+				 <element name="choreographyModel" type="tns:ChorModelType" minOccurs="0" maxOccurs="unbounded"></element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="ChorModelType">
+		<sequence>
+			<element name="choreographyModelID" type="string"></element>
+			<element name="choreographyModelName" type="string"></element>
+			<element name="choreographyModelState" type="cmst:ChoreographyModelStatesType"></element>
+			<element name="processModels" type="tns:ChorProcessModelsInformationType"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="ChorProcessModelsInformationType">
+		<sequence>
+			<element name="processModel" type="tns:ChorProcessModelType" minOccurs="0" maxOccurs="unbounded">
+			</element>
+		</sequence>
+	</complexType>
+	
+
+	<complexType name="ChorProcessModelType">
+		<sequence>
+			<element name="processModelID" type="string"></element>
+			<element name="processModelName" type="string"></element>
+			<element name="processModelState" type="pmst:ProcessModelStatesType"></element>
+		</sequence>
+	</complexType>
+	
+	
+</schema>

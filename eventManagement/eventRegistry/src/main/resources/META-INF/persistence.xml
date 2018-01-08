@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	version="1.0">
+
+	<persistence-unit name="eventRegistry" transaction-type="JTA">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=eventRegistryDS)</jta-data-source>
+
+		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ProcessInstance
+		</class>
+		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ProcessInstancePK
+		</class>
+
+		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ProcessModel
+		</class>
+		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.SCEInstanceRef
+		</class>
+
+		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.SCEEvent
+		</class>
+		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ProcessEvent
+		</class>
+		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ProcessInstanceEvent
+		</class>
+		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ChoreographyInstance
+		</class>
+		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ChoreographyModel
+		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ActivityInstance
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ActivityInstancePK
+		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ActivityInstanceEvent
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.ChoreographyInstanceEvent
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.MessageLink
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.MessageLinkInstance
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.MessageExchangeEvent
+ 		</class>
+		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.iteration.Iteration
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.iteration.Iteration
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.iteration.IterationEvent
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.iteration.RewindingPoints
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.iteration.RewindingPointsEntry
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.correlation.Correlation
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.correlation.CorrelationSetInstance
+ 		</class>
+ 		<class>de.unistuttgart.iaas.chor.integration.event.registry.domain.correlation.CorrelationSet
+ 		</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.archive.autodetection" value="false" />
+			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
+			<property name="hibernate.show_sql" value="false" />
+		</properties>
+	</persistence-unit>
+
+</persistence>
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/choreography_model_states"
+	xmlns:tns="http://www.example.org/choreography_model_states"
+	elementFormDefault="qualified">
+
+    <simpleType name="ChoreographyModelStatesType">
+    	<restriction base="string">
+    		<enumeration value="Choreography_Active"></enumeration>
+    		<enumeration value="Choreography_Deployed"></enumeration>
+    		<enumeration value="Choreography_Disabled"></enumeration>
+    		<enumeration value="Choreography_Retired"></enumeration>
+    		<enumeration value="Choreography_Undeployed"></enumeration>
+    	</restriction>
+    </simpleType>
+</schema>
