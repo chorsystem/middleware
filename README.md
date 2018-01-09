@@ -21,7 +21,7 @@ Execute Maven in the root folder with the following command:
 
 This should build all components as OSGi Bundles place them in the local maven repository (in .m2).
 For building the internal choreography instance graph Eclipse EMF is necessary. As a quick workaround, we wrapped the necessary plugin jars
-as OSGi Bundle. They are located in the wrapped-libs folder and can each be installed in the maven repository via 
+as OSGi Bundle. They are located in the *wrapped-libs* folder and can each be installed in the maven repository via 
 
 
     mvn install:install-file -Dfile=<path-to-file> -DpomFile=<path-to-pomfile>
@@ -41,7 +41,7 @@ Make sure that the user and password you create correspond to the ones you speci
 ServiceMix acts as the platform for deploying and executing the OSGi Bundles representing the distinct middleware components.
 
 ServiceMix provides a mechanism to install OSGi Bundles as features. 
-The middlware feature.xml is located in the feature folder.
+The middleware feature.xml is located in the *feature* folder.
 Assuming all bundles have been built using Maven the feature can be added in the following way:
 
 
