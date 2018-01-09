@@ -32,7 +32,7 @@ See also  https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html f
 
 ### PostgreSQL
 
-Initialize the Database with the resetChorSystem script given in the scripts folder.
+Initialize the Database with the *resetChorSystem* script given in the scripts folder.
 You can also reset the middleware with the script.
 Make sure that the user and password you create correspond to the ones you specifiy in your own script
 
@@ -48,7 +48,7 @@ Assuming all bundles have been built using Maven the feature can be added in the
     features:addUrl mvn:de.unistuttgart.iaas.chor.integration/feature/0.1-SNAPSHOT/xml/features
 
 
-Subsequently, it allows to install the dependencies of the middlware components:
+Subsequently, it allows to install the dependencies of the middleware components:
 
     features:install chor:middleware-dependencies
     features:install chor:emf
@@ -58,11 +58,11 @@ Optionally, the complete middleware components as well as the underlying depende
 
     features:install chor:middleware
 
-A second option is to manually copy the jars of all bundles from each target/ folder to the <servicemix_home>/deploy folder.
+A second option is to manually copy the jars of all bundles from each *target/* folder to the *<servicemix_home>/deploy* folder.
 
 ## Hawtio
 [Hawtio](http://hawt.io/) provides an excellent way to monitor everything in the JVM.
-This is also true for the Apache Camel message routes of the middleware. It allows to inspect the message flow in a graphical manner for debugging purposes
+This is also true for the Apache Camel message routes of the middleware. It allows to inspect the message flow in a graphical manner for debugging purposes.
 
 
     features:addurl mvn:io.hawt/hawtio-karaf/1.4.4/xml/features
