@@ -97,35 +97,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-
-
-   
-
-   
-    <dependencyManagement>
-        <dependencies>    
-			
-        </dependencies>
-    </dependencyManagement>
-	
-	<repositories>
- <repository>
-        <id>SimTechNexus</id>
-        <name>Public Repository (Nexus)</name>
-        <url>http://kaaroda.informatik.uni-stuttgart.de:8081/nexus/content/groups/public/</url>
-    </repository>
-  </repositories>
-	<distributionManagement>
-   <repository>
-        <id>deploymentRepo</id>
-        <name>Internal Releases</name>
-        <url>http://kaaroda.informatik.uni-stuttgart.de:8081/nexus/content/repositories/releases/</url>
-      </repository>
-      <snapshotRepository>
-        <id>deploymentRepo</id>
-        <name>Internal Releases</name>
-        <url>http://kaaroda.informatik.uni-stuttgart.de:8081/nexus/content/repositories/snapshots/</url>
-      </snapshotRepository>
- </distributionManagement>
 </project>
